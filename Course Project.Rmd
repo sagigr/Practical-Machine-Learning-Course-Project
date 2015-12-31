@@ -1,0 +1,128 @@
+---
+output: pdf_document
+---
+
+## Practical Machine Learning: Course Project - Prediction Assignment Writeup
+
+# 
+
+Sagi Greenstine
+
+## Overview
+
+### The "Weight Lifting Exercises Dataset" Dataset
+
+The Weight Lifting Exercises Dataset dataset this is a set of observations of the 
+
+
+
+Source: 
+
+### The Course Project Report
+
+This report is a  
+
+## Data Processing
+
+### Loading and viewing the data
+
+Loading the dataset:
+
+```{r loaddata}
+library(datasets)
+if(!exists("")){
+   <- 
+}
+```
+
+```{r headdata}
+head()
+```
+
+The structure of the data:
+
+```{r strdataset}
+str()
+```
+
+A data frame with  observations on  variables:
+
+1. **len**      *numeric*       - Tooth length  
+2. **supp**     *factor*        - Supplement type (VC or OJ)  
+3. **dose**	    *numeric*       - Dose in milligrams/day  
+
+### The summary of the data
+
+```{r summarydata}
+summary()
+```
+
+### Exploratory Data Analysis 
+
+The  dataset :
+
+```{r dataplot, echo=FALSE}
+library(ggplot2)
+ggplot(data=ToothGrowth, aes(x=as.factor(dose), y=len)) +
+    geom_bar(stat="identity") +
+    facet_grid(. ~ supp) +
+    xlab("Dose(mg/day)") +
+    ylab("Tooth Length") +
+    ggtitle("ToothGrowth Data")        
+```
+
+Obviously, there is a 
+
+## Data Analysis
+
+### Confidence intervals and hypothesis tests
+
+1. Analysis of the data for correlation between the supplement type and the tooth length:
+
+```{r supp}
+t.test(len ~ supp, paired=F, var.equal=F, data=tgdata)
+```
+
+The confidence interval doesn't let to reject the null hypothesis of no correlation between the supplement type and the tooth length.
+
+2. Analysis of the data for correlation between the dose and the tooth length:
+
+```{r dose}
+dose1 <- subset(tgdata, dose %in% c(0.5, 1.0))
+dose2 <- subset(tgdata, dose %in% c(1.0, 2.0))
+dose3 <- subset(tgdata, dose %in% c(0.5, 2.0))
+t.test(len ~ dose, paired=F, var.equal=F, data=dose1)
+t.test(len ~ dose, paired=F, var.equal=F, data=dose2)
+t.test(len ~ dose, paired=F, var.equal=F, data=dose3)
+```
+
+The confidence intervals allow to reject the null hypothesis and confirm that there is a significant correlation between the dose and the tooth length.
+
+3. Analysis of the data for correlation between the supplement type and tooth length for each dosage level:
+
+```{r suppdose}
+dose0.5 <- subset(tgdata, dose==0.5)
+dose1.0 <- subset(tgdata, dose==1.0)
+dose2.0 <- subset(tgdata, dose==2.0)
+t.test(len ~ supp, paired=F, var.equal=F, data=dose0.5)
+t.test(len ~ supp, paired=F, var.equal=F, data=dose1.0)
+t.test(len ~ supp, paired=F, var.equal=F, data=dose2.0)
+```
+
+The confidence intervals for dosage levels of 0.5 and 1.0 mg/day allow to reject the null hypothesis and confirm that there is a significant correlation between the supplement type and tooth length for these dosage levels.
+
+However, the confidence interval for dosage level of 2.0 mg/day doesn't allow to reject the null hypothesis.
+
+## The conclusions and the assumptions
+
+Here are some conclusions based on the above data analysis:
+
+1. There is no correlation between the supplement type and the tooth length (cannot reject the null hypothesis).
+2. There is a significant correlation between the dose and the tooth length (the null hypotesis is rejected).
+3. There is a significant correlation between the supplement type and tooth length for 0.5 and 1.0 mg/day dosage levels (the null hypothesis is rejected).    However, for 2.0 mg/day dosage level there is no correlation between the supplement type and tooth length (cannot reject the null hypothesis).
+
+The assumptions for these conclusions:
+
+1. The given sample of guinea pigs is a representative for all the population of guinea pigs.
+2. The dosage levels and the supplement types are randomly assigned.
+3. The distribution of the values is normal.
