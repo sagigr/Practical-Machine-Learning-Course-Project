@@ -2,7 +2,7 @@
 output: pdf_document
 ---
 
-## Practical Machine Learning: Course Project - Prediction Assignment Writeup
+## Practical Machine Learning: Prediction Assignment Writeup
 
 # 
 
