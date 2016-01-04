@@ -1,16 +1,20 @@
 ---
-output: pdf_document
+output: html_document
 ---
 
 ## Practical Machine Learning: Prediction Assignment Writeup
 
-# 
+# Weight Lifting Exercises Dataset
 
 Sagi Greenstine
 
-## Overview
+## Introduction
 
-### The "Weight Lifting Exercises Dataset" Dataset
+Using devices such as *Jawbone Up*, *Nike FuelBand*, and *Fitbit* it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify **how much** of a particular activity they do, but they rarely quantify **how well** they do it.  
+In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).  
+The goal of the project is to predict the manner in which they did the exercise. This is the "classe" variable in the training set. It is possible to use any of the other variables to predict with. It is necessary to create a report describing how was built the model, how was used cross validation, what the expected out of sample error is, and why were made the choices that were made. The prediction model also should be used to predict 20 different test cases. 
+   
+### The "Weight Lifting Exercises Dataset"
 
 The Weight Lifting Exercises Dataset dataset this is a set of observations of the 
 
@@ -29,20 +33,20 @@ This report is a
 Loading the dataset:
 
 ```{r loaddata}
-library(datasets)
-if(!exists("")){
-   <- 
-}
+#library(datasets)
+#if(!exists("")){
+#   <- 
+#}
 ```
 
 ```{r headdata}
-head()
+#head()
 ```
 
 The structure of the data:
 
 ```{r strdataset}
-str()
+#str()
 ```
 
 A data frame with  observations on  variables:
@@ -54,7 +58,7 @@ A data frame with  observations on  variables:
 ### The summary of the data
 
 ```{r summarydata}
-summary()
+#summary()
 ```
 
 ### Exploratory Data Analysis 
@@ -80,7 +84,7 @@ Obviously, there is a
 1. Analysis of the data for correlation between the supplement type and the tooth length:
 
 ```{r supp}
-t.test(len ~ supp, paired=F, var.equal=F, data=tgdata)
+#t.test(len ~ supp, paired=F, var.equal=F, data=tgdata)
 ```
 
 The confidence interval doesn't let to reject the null hypothesis of no correlation between the supplement type and the tooth length.
@@ -88,12 +92,7 @@ The confidence interval doesn't let to reject the null hypothesis of no correlat
 2. Analysis of the data for correlation between the dose and the tooth length:
 
 ```{r dose}
-dose1 <- subset(tgdata, dose %in% c(0.5, 1.0))
-dose2 <- subset(tgdata, dose %in% c(1.0, 2.0))
-dose3 <- subset(tgdata, dose %in% c(0.5, 2.0))
-t.test(len ~ dose, paired=F, var.equal=F, data=dose1)
-t.test(len ~ dose, paired=F, var.equal=F, data=dose2)
-t.test(len ~ dose, paired=F, var.equal=F, data=dose3)
+
 ```
 
 The confidence intervals allow to reject the null hypothesis and confirm that there is a significant correlation between the dose and the tooth length.
@@ -101,12 +100,7 @@ The confidence intervals allow to reject the null hypothesis and confirm that th
 3. Analysis of the data for correlation between the supplement type and tooth length for each dosage level:
 
 ```{r suppdose}
-dose0.5 <- subset(tgdata, dose==0.5)
-dose1.0 <- subset(tgdata, dose==1.0)
-dose2.0 <- subset(tgdata, dose==2.0)
-t.test(len ~ supp, paired=F, var.equal=F, data=dose0.5)
-t.test(len ~ supp, paired=F, var.equal=F, data=dose1.0)
-t.test(len ~ supp, paired=F, var.equal=F, data=dose2.0)
+
 ```
 
 The confidence intervals for dosage levels of 0.5 and 1.0 mg/day allow to reject the null hypothesis and confirm that there is a significant correlation between the supplement type and tooth length for these dosage levels.
