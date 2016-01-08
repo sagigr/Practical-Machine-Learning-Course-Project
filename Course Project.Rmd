@@ -2,121 +2,47 @@
 output: html_document
 ---
 
-## Practical Machine Learning: Prediction Assignment Writeup
-
-# Weight Lifting Exercises Dataset
+# Practical Machine Learning: Prediction Assignment Writeup
 
 Sagi Greenstine
 
 ## Introduction
 
 Using devices such as *Jawbone Up*, *Nike FuelBand*, and *Fitbit* it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify **how much** of a particular activity they do, but they rarely quantify **how well** they do it.  
-In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).  
+In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants.  
+Six young health participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E). Class A corresponds to the specified execution of the exercise, while the other 4 classes correspond to common mistakes.  
+More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).  
 The goal of the project is to predict the manner in which they did the exercise. This is the "classe" variable in the training set. It is possible to use any of the other variables to predict with. It is necessary to create a report describing how was built the model, how was used cross validation, what the expected out of sample error is, and why were made the choices that were made. The prediction model also should be used to predict 20 different test cases. 
    
-### The "Weight Lifting Exercises Dataset"
-
-The Weight Lifting Exercises Dataset dataset this is a set of observations of the 
-
-
-
-Source: 
-
-### The Course Project Report
-
-This report is a  
-
 ## Data Processing
 
 ### Loading and viewing the data
 
+#### The "Weight Lifting Exercises Dataset"
+
+**Source:** Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13). Stuttgart, Germany: ACM SIGCHI, 2013.
+
 Loading the dataset:
 
 ```{r loaddata}
-#library(datasets)
-#if(!exists("")){
-#   <- 
-#}
-```
-
-```{r headdata}
-#head()
+if(!exists("training")){
+        training <- read.csv("./pml-training.csv", row.names = NULL, check.names=F, stringsAsFactors=F, header=T, sep=',', comment.char="", quote='\"', na.strings = c("NA", ""))
+}
+if(!exists("testing")){
+        testing <- read.csv("./pml-testing.csv", row.names = NULL, check.names=F, stringsAsFactors=F, header=T, sep=',', comment.char="", quote='\"', na.strings = c("NA", ""))
+}
 ```
 
 The structure of the data:
+training dataset 19622 obs. of  160 variables
+testing dataset  20 obs. of  160 variables
 
-```{r strdataset}
-#str()
-```
-
-A data frame with  observations on  variables:
-
-1. **len**      *numeric*       - Tooth length  
-2. **supp**     *factor*        - Supplement type (VC or OJ)  
-3. **dose**	    *numeric*       - Dose in milligrams/day  
-
-### The summary of the data
-
-```{r summarydata}
-#summary()
-```
-
-### Exploratory Data Analysis 
-
-The  dataset :
-
-```{r dataplot, echo=FALSE}
-library(ggplot2)
-ggplot(data=ToothGrowth, aes(x=as.factor(dose), y=len)) +
-    geom_bar(stat="identity") +
-    facet_grid(. ~ supp) +
-    xlab("Dose(mg/day)") +
-    ylab("Tooth Length") +
-    ggtitle("ToothGrowth Data")        
-```
-
-Obviously, there is a 
+The training dataset has 19622 observations and 160 variables, and the testing data set contains 20 observations and the same variables as the training set. We are trying to predict the outcome of the variable classe in the training set.
 
 ## Data Analysis
 
-### Confidence intervals and hypothesis tests
 
-1. Analysis of the data for correlation between the supplement type and the tooth length:
-
-```{r supp}
-#t.test(len ~ supp, paired=F, var.equal=F, data=tgdata)
-```
-
-The confidence interval doesn't let to reject the null hypothesis of no correlation between the supplement type and the tooth length.
-
-2. Analysis of the data for correlation between the dose and the tooth length:
-
-```{r dose}
-
-```
-
-The confidence intervals allow to reject the null hypothesis and confirm that there is a significant correlation between the dose and the tooth length.
-
-3. Analysis of the data for correlation between the supplement type and tooth length for each dosage level:
-
-```{r suppdose}
-
-```
-
-The confidence intervals for dosage levels of 0.5 and 1.0 mg/day allow to reject the null hypothesis and confirm that there is a significant correlation between the supplement type and tooth length for these dosage levels.
-
-However, the confidence interval for dosage level of 2.0 mg/day doesn't allow to reject the null hypothesis.
 
 ## The conclusions and the assumptions
 
-Here are some conclusions based on the above data analysis:
 
-1. There is no correlation between the supplement type and the tooth length (cannot reject the null hypothesis).
-2. There is a significant correlation between the dose and the tooth length (the null hypotesis is rejected).
-3. There is a significant correlation between the supplement type and tooth length for 0.5 and 1.0 mg/day dosage levels (the null hypothesis is rejected).    However, for 2.0 mg/day dosage level there is no correlation between the supplement type and tooth length (cannot reject the null hypothesis).
-
-The assumptions for these conclusions:
-
-1. The given sample of guinea pigs is a representative for all the population of guinea pigs.
-2. The dosage levels and the supplement types are randomly assigned.
-3. The distribution of the values is normal.
