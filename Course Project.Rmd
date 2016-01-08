@@ -12,8 +12,8 @@ Using devices such as *Jawbone Up*, *Nike FuelBand*, and *Fitbit* it is now poss
 In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants.  
 Six young health participants were asked to perform one set of 10 repetitions of the Unilateral Dumbbell Biceps Curl in five different fashions: exactly according to the specification (Class A), throwing the elbows to the front (Class B), lifting the dumbbell only halfway (Class C), lowering the dumbbell only halfway (Class D) and throwing the hips to the front (Class E). Class A corresponds to the specified execution of the exercise, while the other 4 classes correspond to common mistakes.  
 More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).  
-The goal of the project is to predict the manner in which they did the exercise. This is the "classe" variable in the training set. It is possible to use any of the other variables to predict with. It is necessary to create a report describing how was built the model, how was used cross validation, what the expected out of sample error is, and why were made the choices that were made. The prediction model also should be used to predict 20 different test cases. 
-   
+The goal of the project is to predict the manner in which they did the exercise. This is the "classe" variable in the training set. It is possible to use any of the other variables to predict with. It is necessary to create a report describing how was built the model, how was used cross validation, what the expected out of sample error is, and why were made the choices that were made. The prediction model also should be used to predict 20 different test cases.
+
 ## Data Processing
 
 ### Loading and viewing the data
@@ -33,11 +33,26 @@ if(!exists("testing")){
 }
 ```
 
-The structure of the data:
-training dataset 19622 obs. of  160 variables
-testing dataset  20 obs. of  160 variables
+The structure of the data:  
+- **training** dataset has 19622 observations of  160 variables;  
+- **testing** dataset  has 20 observations of  160 variables.  
+I'll try to predict the outcome of the variable **classe** in the *training* dataset.
 
-The training dataset has 19622 observations and 160 variables, and the testing data set contains 20 observations and the same variables as the training set. We are trying to predict the outcome of the variable classe in the training set.
+### Cleaning the data
+Firstly, let's remove the columns that filled with the NA values.
+```{r remove NAs}
+training <- training[, colSums(is.na(training)) == 0]
+testing <- testing[, colSums(is.na(testing)) == 0]
+```
+Now, **training** and **testing** datasets have 19622 and 20 observations appropriately of 60 variables.
+
+Also, there are the first seven variables related to the time-series or are not numeric and they are unnecessary for predicting.  
+Let's remove these columns.
+```{r removeclmns}
+traingData <- training[, -c(1:7)]
+testData <- testing[, -c(1:7)]
+```
+Now, **trainData** and **testData** datasets have 19622 and 20 observations appropriately of 53 variables, the first 52 variables are the same, and the 53-th variable is *classe* and *problem_id* appropriatelly.
 
 ## Data Analysis
 
