@@ -58,6 +58,6 @@ Now, **trainData** and **testData** datasets have 19622 and 20 observations (app
 
 
 
-## The conclusions and the assumptions
+## The conclusions and the assumptions 
 
 
