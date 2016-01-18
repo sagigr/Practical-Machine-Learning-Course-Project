@@ -54,9 +54,17 @@ testData <- testing[, -c(1:7)]
 ```
 Now, **trainData** and **testData** datasets have 19622 and 20 observations (appropriately) of 53 variables, the first 52 variables are the same, and the 53-th variable is *classe* and *problem_id* appropriatelly.
 
+### Slicing the data
+Now we can split the cleaned training set into a training set (train, 70%) and a validation set (test, 30%). The validation set will be used to conduct cross validation. to compute the out-of-sample errors.??? 
+```{r splitting, warning=FALSE, cache=TRUE}
+library(caret)
+set.seed(77777)
+inTrain <- createDataPartition(trainData$classe, p=0.70, list=FALSE)
+train <- trainData[inTrain, ]
+test <- trainData[-inTrain, ]
+```
+
 ## Data Analysis
-
-
 
 ## The conclusions and the assumptions 
 
