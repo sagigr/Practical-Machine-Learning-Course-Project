@@ -49,7 +49,7 @@ Now, **training** and **testing** datasets have 19622 and 20 observations (appro
 Also, there are the first seven variables related to the time-series or are not numeric and they are unnecessary for predicting.  
 Let's remove these columns.
 ```{r removeclmns}
-traingData <- training[, -c(1:7)]
+trainData <- training[, -c(1:7)]
 testData <- testing[, -c(1:7)]
 ```
 Now, **trainData** and **testData** datasets have 19622 and 20 observations (appropriately) of 53 variables, the first 52 variables are the same, and the 53-th variable is *classe* and *problem_id* appropriatelly.
