@@ -64,7 +64,11 @@ train <- trainData[inTrain, ]
 test <- trainData[-inTrain, ]
 ```
 
-## Data Analysis
+## Prediction Algorithms
+
+### Decision Trees
+
+### Random Forests
 
 ## The conclusions and the assumptions 
 
