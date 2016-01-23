@@ -57,7 +57,7 @@ Now, **trainData** and **testData** datasets have 19622 and 20 observations (app
 ### Slicing the data
 Now we can split the cleaned training set into a training set (train, 70%) and a validation set (test, 30%). The validation set will be used to conduct cross validation. to compute the out-of-sample errors.??? 
 ```{r splitting, warning=FALSE, cache=TRUE}
-library(caret); library(lattice); library(ggplot2)
+library(caret)
 set.seed(77777)
 inTrain <- createDataPartition(trainData$classe, p=0.70, list=FALSE)
 train <- trainData[inTrain, ]
@@ -65,6 +65,20 @@ test <- trainData[-inTrain, ]
 ```
 
 ## Prediction Algorithms
+We use classification trees and random forests to predict the outcome. We fit a predictive model for activity recognition using Random Forest algorithm. We will use 5-fold cross validation when applying the algorithm.
+Here we consider 5-fold cross validation when implementing the algorithm to save a little computing time. Since data transformations may be less important in non-linear models like classification trees, we do not transform any variables.
+
+```{r cv, warning=FALSE, cache=TRUE}
+controlrf <- trainControl(method = "cv", number = 5)
+modelrf <- train(classe ~ ., data = train, method = "rpart", trControl = controlrf)
+modelrf
+```
+
+```{r rpartplot, warning=FALSE, cache=TRUE}
+library(rattle)
+library(rpart.plot)
+fancyRpartPlot(modelrf$finalModel)
+```
 
 ### Decision Trees
 
