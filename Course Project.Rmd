@@ -80,6 +80,15 @@ library(rpart.plot)
 fancyRpartPlot(modelrf$finalModel)
 ```
 
+```{r predict}
+library(caret)
+predict_rpart <- predict(modelrf, test)
+(conf_rpart <- confusionMatrix(test$classe, predict_rpart))
+```
+
+```{r accuracy}
+(accuracy_rpart <- conf_rpart$overall[1])
+```
 ### Decision Trees
 
 ### Random Forests
