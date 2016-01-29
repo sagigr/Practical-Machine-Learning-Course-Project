@@ -66,9 +66,9 @@ test <- trainData[-inTrain, ]
 
 ## Predictive Models
 
-We fit a predictive model for activity recognition using Classification trees and Random Forest algorithms.  
+We fit a predictive model for activity recognition using Classification Trees and Random Forest algorithms.  
 
-### Classification trees
+### Classification Trees
 
 We will use 5-fold cross validation when applying the algorithm.
 
@@ -97,6 +97,8 @@ confrp
 accurp <- confrp$overall[1]
 accurp
 ```
+
+The accuracy rate is 0.5 approximately, thus the out-of-sample error rate is about 0.5. Therefore, using the Classification Tree doesn't predict the outcome *classe* very well.
 
 ### Random Forests
 
