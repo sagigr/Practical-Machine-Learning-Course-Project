@@ -64,9 +64,13 @@ train <- trainData[inTrain, ]
 test <- trainData[-inTrain, ]
 ```
 
-## Prediction Algorithms
-We use classification trees and random forests to predict the outcome. We fit a predictive model for activity recognition using Random Forest algorithm. We will use 5-fold cross validation when applying the algorithm.
-Here we consider 5-fold cross validation when implementing the algorithm to save a little computing time. Since data transformations may be less important in non-linear models like classification trees, we do not transform any variables.
+## Predictive Models
+
+We fit a predictive model for activity recognition using Classification trees and Random Forest algorithms.  
+
+### Classification trees
+
+We will use 5-fold cross validation when applying the algorithm.
 
 ```{r cv, warning=FALSE, cache=TRUE}
 controlrf <- trainControl(method = "cv", number = 5)
@@ -80,18 +84,22 @@ library(rpart.plot)
 fancyRpartPlot(modelrf$finalModel)
 ```
 
-```{r predict}
+Predicting outcomes with the validation set and viewing the prediction result:
+
+```{r predict, warning=FALSE, cache=TRUE}
 library(caret)
-predict_rpart <- predict(modelrf, test)
-(conf_rpart <- confusionMatrix(test$classe, predict_rpart))
+predictrp <- predict(modelrf, test)
+confrp <- confusionMatrix(test$classe, predictrp)
+confrp
 ```
 
 ```{r accuracy}
-(accuracy_rpart <- conf_rpart$overall[1])
+accurp <- confrp$overall[1]
+accurp
 ```
-### Decision Trees
 
 ### Random Forests
+
 
 ## The conclusions and the assumptions 
 
