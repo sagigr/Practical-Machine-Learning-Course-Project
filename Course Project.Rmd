@@ -58,7 +58,7 @@ Now, **trainData** and **testData** datasets have 19622 and 20 observations (app
 Now we can split the cleaned training set into a training set (train, 70%) and a validation set (test, 30%). The validation set will be used to conduct cross validation.
 
 ```{r splitting, warning=FALSE, cache=TRUE}
-library(caret)
+library(caret); library(lattice); library(ggplot2)
 set.seed(77777)
 inTrain <- createDataPartition(trainData$classe, p=0.70, list=FALSE)
 train <- trainData[inTrain, ]
